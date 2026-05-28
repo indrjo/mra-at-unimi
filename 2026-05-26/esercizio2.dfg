@@ -1,0 +1,79 @@
+begin_problem(eckmann_hilton).
+
+list_of_descriptions.
+name({*Laboratorio*}).
+author({*Indrjo Dedej*}).
+status(unknown).
+description({*Esercizio 2*}).
+date({*26/5/2026*}).
+end_of_list.
+
+list_of_symbols.
+functions[(m1,2), (e1, 0), (m2,2), (e2, 0)].
+end_of_list.
+
+
+list_of_formulae(axioms).
+
+formula(
+  forall([x],
+    equal(m1(x, e1), x)
+  )
+).
+
+formula(
+  forall([x],
+    equal(m1(e1, x), x)
+  )
+).
+
+formula(
+  forall([x],
+    equal(m2(x, e2), x)
+  )
+).
+
+formula(
+  forall([x],
+    equal(m2(e2, x), x)
+  )
+).
+
+formula(
+  forall([a, b, c, d],
+         equal(
+           m2(m1(a, b), m1(c, d)),
+           m1(m2(a, c), m2(b, d))
+         )
+  )
+).
+
+end_of_list.
+
+
+list_of_formulae(conjectures).
+
+formula(
+  forall([x, y],
+         equal(m1(x, y), m2(x, y))
+  )
+).
+
+formula(
+  forall([x, y],
+         equal(m1(x, y), m1(y, x))
+  )
+).
+
+formula(
+  forall([a, b, c],
+         equal(
+           m1(m1(a, b), c),
+           m1(a, m1(b, c))
+         )
+  )
+).
+
+end_of_list.
+
+end_problem.

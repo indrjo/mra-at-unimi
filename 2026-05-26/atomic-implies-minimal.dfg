@@ -1,0 +1,123 @@
+begin_problem(boolean_atoms).
+
+list_of_descriptions.
+name({*Laboratorio*}).
+author({*Indrjo Dedej*}).
+status(unknown).
+description({*Esercizio 3*}).
+date({*26/5/2026*}).
+end_of_list.
+
+list_of_symbols.
+functions[(cup, 2), (cap, 2), (top, 0), (bot, 0), (neg, 1)].
+predicates[(atomic, 1), (less, 2), (minimal, 1)].
+end_of_list.
+
+
+
+list_of_formulae(axioms).
+
+% commutatività
+formula(forall([X,Y], equal(cup(X,Y), cup(Y,X)))).
+formula(forall([X,Y], equal(cap(X,Y), cap(Y,X)))).
+
+% associatività
+formula(forall([X,Y,Z], equal(cup(cup(X,Y),Z), cup(X,cup(Y,Z))))).
+formula(forall([X,Y,Z], equal(cap(cap(X,Y),Z), cap(X,cap(Y,Z))))).
+
+% assorbimento
+formula(forall([X,Y], equal(cup(X,cap(X,Y)), X))).
+formula(forall([X,Y], equal(cap(X,cup(X,Y)), X))).
+
+% proprietà distributive
+formula(
+  forall([X,Y,Z],
+         equal(
+           cup(X,cap(Y,Z)),
+           cap(cup(X,Y),cup(X,Z))
+         )
+  )
+).
+
+% identità
+formula(forall([X], equal(cup(X,bot), X))).
+formula(forall([X], equal(cap(X,top), X))).
+
+% Proprietà del complemento
+formula(forall([X], equal(cup(X,neg(X)), top))).
+formula(forall([X], equal(cap(X,neg(X)), bot))).
+
+% Definizione di elemento atomico
+formula(
+  forall([A],
+    equiv(
+      atomic(A),
+      and(
+        not(equal(A, bot)),
+        forall([X],
+          or(
+            less(A, X),
+            less(A, neg(X))
+          )
+        )
+      )
+    )
+  )
+).
+
+% ordinamento
+formula(
+  forall([A, B],
+    equiv(
+      less(A, B),
+      equal(cup(A, B), B)
+    )
+  )
+).
+
+% Definizione di minimale
+formula(
+  forall([X],
+    equiv(
+      minimal(X),
+      and(
+        not(equal(X, bot)),
+        forall([B],
+               implies(
+                 less(B, X),
+                 or(equal(B, bot), equal(B, X))
+               )   
+        )
+      )
+    )
+  )
+).
+
+end_of_list.
+
+
+
+list_of_formulae(conjectures).
+
+%% Un elemento atomico è minimale.
+formula(
+  forall([X],
+    implies(
+      atomic(X),
+      minimal(X)
+    )
+  )
+).
+
+end_of_list.
+
+
+list_of_settings(SPASS).
+{*
+set_precedence(top,bot,neg,cup,cap). 
+set_flag(DocProof,1).
+set_flag(Ordering,0).
+*}
+end_of_list.
+
+end_problem.

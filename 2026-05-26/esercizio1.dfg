@@ -1,0 +1,105 @@
+begin_problem(rack).
+
+list_of_descriptions.
+name({*Laboratorio*}).
+author({*Indrjo Dedej*}).
+status(unknown).
+description({*Esercizio 1*}).
+date({*26/5/2026*}).
+end_of_list.
+
+list_of_symbols.
+functions[(le,2),(ge,2)].
+end_of_list.
+
+
+list_of_formulae(axioms).
+
+formula(
+  forall([a, b, c],
+         equal(
+           ge(ge(c, b), a),
+           ge(ge(c, a), ge(b, a))
+         )
+  )
+).
+
+formula(
+  forall([a, b, c],
+         equal(
+           le(a, ge(b, c)),
+           le(le(a, b), le(a, c))
+         )
+  )
+).
+
+formula(
+  forall([a, b],
+         equal(
+           ge(le(a, b), a),
+           b
+         )
+  )
+).
+formula(
+  forall([a, b],
+         equal(
+           le(a, ge(b, a)),
+           b
+         )
+  )
+).
+
+end_of_list.
+
+
+list_of_formulae(conjectures).
+
+formula(
+  forall([a, b, c],
+         equal(
+           le(a, ge(b, c)),
+           ge(le(a, b), le(a, c))
+         )
+  )
+).
+
+formula(
+  forall([a, b, c],
+         equal(
+           ge(le(c, b), a),
+           le(ge(c, a), le(b, a))
+         )
+  )
+).
+
+formula(
+  forall([a, b, c],
+         equal(
+           le(a, ge(b, le(c, a))),
+           le(le(a, c), ge(b, c))
+         )
+  )
+).
+
+formula(
+  forall([a],
+         implies(
+           equal(le(a, a), a),
+           equal(ge(a, a), a)
+         )
+  )
+).
+
+formula(
+  forall([a],
+         implies(
+           equal(ge(a, a), a),
+           equal(le(a, a), a)
+         )
+  )
+).
+
+end_of_list.
+
+end_problem.
